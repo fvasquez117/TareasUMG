@@ -1,0 +1,119 @@
+import java.util.Scanner;
+
+class Node {
+    int value;
+    Node next;
+    
+    public Node(int value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    public LinkedList() {
+        this.head = null;
+    }
+
+    public void insertNode() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Ingrese un número: ");
+        int value = input.nextInt();
+        Node newNode = new Node(value);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+        System.out.println("Se ha insertado el número " + value + " en la lista.");
+    }
+
+    public void searchNode() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Ingrese un número para buscar: ");
+        int value = input.nextInt();
+        Node temp = head;
+        while (temp != null && temp.value != value) {
+            temp = temp.next;
+        }
+        if (temp == null) {
+            System.out.println("El número " + value + " no se encuentra en la lista.");
+        } else {
+            System.out.println("El número " + value + " se encuentra en la lista.");
+        }
+    }
+
+    public void deleteNode() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Ingrese un número para eliminar: ");
+        int value = input.nextInt();
+        Node temp = head;
+        Node prev = null;
+        while (temp != null && temp.value != value) {
+            prev = temp;
+            temp = temp.next;
+        }
+        if (temp == null) {
+            System.out.println("El número " + value + " no se encuentra en la lista.");
+        } else {
+            if (prev == null) {
+                head = temp.next;
+            } else {
+                prev.next = temp.next;
+            }
+            System.out.println("Se ha eliminado el número " + value + " de la lista.");
+        }
+    }
+
+    public void displayList() {
+        Node temp = head;
+        System.out.print("Los números en la lista son: ");
+        while (temp != null) {
+            System.out.print(temp.value + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        Scanner input = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.println("Por favor, seleccione una opción:");
+            System.out.println("1. Insertar un nodo");
+            System.out.println("2. Buscar un elemento");
+            System.out.println("3. Eliminar un nodo");
+            System.out.println("4. Listar los valores");
+            System.out.println("5. Salir");
+            choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    list.insertNode();
+                    break;
+                case 2:
+                    list.searchNode();
+                    break;
+                case 3:
+                    list.deleteNode();
+                    break;
+                case 4:
+                    list.displayList();
+                    break;
+                case 5:
+                    System.out.println("Gracias por utilizar el programa.");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                    break;
+            }
+        } while (choice != 5);
+    }
